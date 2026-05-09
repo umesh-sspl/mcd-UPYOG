@@ -20,15 +20,15 @@ const FinanceCard = () => {
     Icon: <FinanceChartIcon />,
     moduleName: t("ACTION_TEST_FINANCE").toUpperCase(),
     kpis: [
-      // {
-      //   count: "-",
-      //   label: t("TENANT_FINANCE_MODULE"),
-      //   link: "/digit-ui/employee/finance/home",
-      // },
+      {
+        count: "-",
+        label: t("TENANT_FINANCE_MODULE"),
+        link: "/digit-ui/employee/finance/services/EGF/dashboard",
+      },
       {
         count: "-",
         label: t("ACTION_TEST_FINANCE_INBOX"),
-        link: "/digit-ui/employee/finance/inbox",
+        link: "/digit-ui/employee/finance/services/EGF/inbox",
       }
     ],
     links: [

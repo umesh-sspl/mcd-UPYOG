@@ -127,10 +127,19 @@ const SubMenu = ({ item }) => {
               if (item.navigationURL.indexOf("/digit-ui") === -1) {
                 const getOrigin = window.location.origin;
                 return (
-                  <a
+                  <Link
                     key={index}
-                    className={`dropdown-link ${pathname === item.link ? "active" : ""}`}
-                    href={getOrigin + "/employee/" + item.navigationURL}
+
+                    className={`dropdown-link ${
+                      pathname === item.link
+                        ? "active"
+                        : ""
+                    }`}
+
+                    to={
+                      "/digit-ui/employee/finance/" +
+                      item.navigationURL
+                    }
                   >
                     <div className="actions" data-tip="React-tooltip" data-for={`jk-side-${index}`}>
                       <span> {trimModuleName} </span>
@@ -144,7 +153,7 @@ const SubMenu = ({ item }) => {
                         <span className="tooltiptext">{t(`ACTION_TEST_${getChildName}`)}</span>
                       </div>{" "}
                     </div> */}
-                  </a>
+                  </Link>
                 );
               }
               return (

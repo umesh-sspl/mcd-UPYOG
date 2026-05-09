@@ -10,6 +10,20 @@ const assetsProxy = createProxyMiddleware({
   target: process.env.REACT_APP_PROXY_ASSETS || "https://qa.digit.org",
   changeOrigin: true,
 });
+
+const financeProxy = createProxyMiddleware({
+  target: process.env.REACT_APP_FINANCE_PROXY || "https://mcdaccounts.mcd.gov.in",
+  changeOrigin: true,
+  secure: false,
+  onProxyReq: (proxyReq, req, res) => {
+    console.log(
+      "Finance Proxy:",
+      req.method,
+      req.originalUrl
+    );
+  },
+});
+
 module.exports = function (app) {
   [
     "/access/v1/actions/mdms",
@@ -113,4 +127,6 @@ module.exports = function (app) {
     
   ].forEach((location) => app.use(location, createProxy));
   ["/pb-egov-assets"].forEach((location) => app.use(location, assetsProxy));
+  ["/services"].forEach((location) => app.use(location, financeProxy));
+
 };

@@ -3,7 +3,7 @@ import { Loader } from "@nudmcdgnpm/digit-ui-react-components";
 
 const RedirectToFinanceInbox = () => {
 
-  const redirectPath = "/employee/services/EGF/inbox";
+  const redirectPath = "digit-ui/employee/services/EGF/inbox";
 
   if (typeof window !== "undefined" && window?.location) {
     window.location.href = `${redirectPath}`;

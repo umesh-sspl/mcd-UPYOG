@@ -1,5 +1,5 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
-
+const financeErrorPage = require("./components/financeErrorPage");
 const createProxy = createProxyMiddleware({
   //target: process.env.REACT_APP_PROXY_API || "https://uat.digit.org",
   // target: process.env.REACT_APP_PROXY_API || "https://qa.digit.org",
@@ -15,13 +15,27 @@ const financeProxy = createProxyMiddleware({
   target: process.env.REACT_APP_FINANCE_PROXY || "https://mcdaccounts.mcd.gov.in",
   changeOrigin: true,
   secure: false,
+
+  proxyTimeout: 30000,
+  timeout: 30000,
+
   onProxyReq: (proxyReq, req, res) => {
-    console.log(
-      "Finance Proxy:",
-      req.method,
-      req.originalUrl
-    );
+    console.log("Finance Proxy:",req.method,req.originalUrl);
   },
+
+  onError: (err, req, res) => {
+    console.error("Finance Proxy Error:",err.message);
+
+    res.writeHead(503, {
+      "Content-Type": "text/html",
+    });
+    res.end(
+      financeErrorPage(
+        err.code || "SERVICE_UNAVAILABLE"
+      )
+    );
+  }
+
 });
 
 module.exports = function (app) {
